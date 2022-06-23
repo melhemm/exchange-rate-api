@@ -50,15 +50,16 @@ const CryptoList = () => {
           </tr>
           {coins.map(data => (
             <tr key={data.id}>
-              <td>{data.name}
+              
+              <td><Link to={`/crypto/${data.id}`}>{data.name}</Link>
                 <img src={data.icon} alt={data.name} width="30px" height="30px" className='icon-img'/>
               </td>
               <td>{data.rank}</td>  
-              <td>{formatNumbers(data.price.toFixed(2))} &#36;</td>
+              <td>&#36;{formatNumbers(data.price.toFixed(2))} </td>
               <td className={checkPrice(data.priceChange1d)}>
                 {data.priceChange1d}
               </td>
-              <td>{formatNumbers(data.marketCap.toFixed(2))} &#36;</td>
+              <td>&#36;{formatNumbers(data.marketCap.toFixed(2))} </td>
             </tr> 
           ))}
         </tbody>

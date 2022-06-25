@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React, {useEffect, useState} from 'react'
 import { useParams } from 'react-router-dom'
+import { checkPrice, formatNumbers } from './CryptoList';
 
 const Crypto = () => {
   const params = useParams()
@@ -30,7 +31,12 @@ const Crypto = () => {
   
 
   return (
-    <div>Crypto</div>
+    <div>
+      <h1>Crypto details</h1>
+      <h3>{crypto.name}</h3>
+      <h4>{crypto.rank}</h4>
+      <p>&#36;{crypto.price}</p>
+    </div>
   )
 }
 

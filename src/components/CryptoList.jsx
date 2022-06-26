@@ -56,7 +56,6 @@ const CryptoList = () => {
               <td className={checkPrice(data.price_change_percentage_24h)}>{formatNumbers(data.price_change_percentage_24h?.toFixed(2))}%</td>
               <td>&#x20BD; {formatNumbers(data.market_cap?.toString().slice(0, -6))} </td> 
             </tr> 
-            
           ))}
         </tbody>
       </table>

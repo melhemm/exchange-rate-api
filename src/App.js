@@ -20,7 +20,7 @@ function App() {
             <Route exact path="/" element={<Home/>}/>
             <Route path="/about" element={<About/>} />
             <Route path="*" element={<NotFound/>} />
-            {<Route path="crypto/:id" element={<Crypto/>} />}
+            {<Route path="coins/:id" element={<Crypto/>} />}
           </Routes>
       </Router>
     </div>

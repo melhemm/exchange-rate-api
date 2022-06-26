@@ -1,48 +1,32 @@
 import axios from 'axios'
 import React, {useEffect, useState} from 'react'
 import { useParams } from 'react-router-dom'
+import { SingleCoin } from '../api/cryptoApi';
 import { checkPrice, formatNumbers} from './CryptoList';
 
 const Crypto = () => {
-  const params = useParams()
+  const {id} = useParams()
 
-  const [crypto, setCrypto] = useState('')
+  const [coin, setCoin] = useState();
 
-  const API_URL = `https://api.coinstats.app/public/v1/coins/${params.id}`;
-
-  const fetchDataById = async () => {
-    await axios.get(API_URL)
-    .then((response) => {
-      return response.data;
-    }).then((data)=> {
-      let coinsData = data.coin
-      console.log(coinsData);
-      setCrypto(coinsData)
-      let priceText = coinsData.price
-      console.log((priceText.toLocaleString()))
-    }).catch((err) => {
-      console.log(err)
-    })
+  const fetchCoin = async () => {
+    const { data } = await axios.get(SingleCoin(id))
+    console.log(data);
+    setCoin(data);
   };
 
   useEffect(() => {
-    fetchDataById()
-    console.log("Params", params);
-  }, [params])
+    fetchCoin();
+  }, []);
 
   return (
     <div className='container'>
       <h1>Crypto details</h1>
-      <img src={crypto.icon} alt={crypto.name} width="30px" height="30px" className='icon-img'/>
-      <h3>{crypto.name}</h3>
-      <h4>{crypto.rank}</h4>
-      {<p>&#36;{formatNumbers(crypto.price?.toFixed(2))}</p>}
-      <p>{crypto.priceChange1d}</p>
-      <p>{crypto.priceChange1h}</p>
-      <p>{crypto.priceChange1w}</p>
-      <p>&#36;{formatNumbers(crypto.marketCap?.toFixed(2))}</p>
-      <p>&#36;{formatNumbers(crypto.totalSupply?.toFixed(2))}</p>
-      <p>{crypto.websiteUrl}</p>
+      <img
+          src={coin?.image.large}
+          alt={coin?.name}
+          height="200"
+        />
     </div>
   )
 }

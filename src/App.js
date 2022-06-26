@@ -7,10 +7,6 @@ import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import Crypto from "./components/Crypto";
 
-// function CryptoId() {
-//   let {cryptoId} = useParams();
-// }
-
 function App() {
   return (
     <div>
@@ -24,7 +20,6 @@ function App() {
           </Routes>
       </Router>
     </div>
-    
   );
 }
 

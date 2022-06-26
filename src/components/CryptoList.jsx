@@ -4,17 +4,16 @@ import { Link } from 'react-router-dom';
 import './CryptoList.css'
 
 export const formatNumbers = (x) => {
-  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  return x?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };
 
 export const checkPrice = (p) => {
   const priceChange = Math.sign(p);
   if (priceChange === -1) {
-    return "&#8595";
+    return "red";
   }
-  return "&#8593";
+  return "green";
 };
-
 
 const CryptoList = () => {
   const [coins, setCoins] = useState([]);
@@ -57,7 +56,7 @@ const CryptoList = () => {
               <td>{data.rank}</td>  
               <td>&#36;{formatNumbers(data.price.toFixed(2))} </td>
               <td className={checkPrice(data.priceChange1d)}>
-                {data.priceChange1d}
+                  {data.priceChange1d}
               </td>
               <td>&#36;{formatNumbers(data.marketCap.toFixed(2))} </td>
             </tr> 

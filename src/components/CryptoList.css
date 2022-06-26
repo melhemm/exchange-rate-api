@@ -57,3 +57,10 @@ table td {
 .icon-img {
   margin-left: 1rem;
 }
+
+.red {
+  color: red;
+}
+.green {
+  color: green;
+}

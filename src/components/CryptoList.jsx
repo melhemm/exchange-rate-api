@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom';
+import { CoinList } from '../api/cryptoApi';
 import './CryptoList.css'
 
 export const formatNumbers = (x) => {
@@ -17,18 +18,16 @@ export const checkPrice = (p) => {
 
 const CryptoList = () => {
   const [coins, setCoins] = useState([]);
-  const API_URL = 'https://api.coinstats.app/public/v1/coins?skip=0&limit=10';
 
   const fetchData = async () => {
-    await axios.get(API_URL)
+    await axios.get(CoinList())
     .then((response) => {
-      return response.data;
-    }).then((data)=> {
-      let coinsData = data.coins
-      console.log(coinsData);
-      setCoins(coinsData)
+      return response.data
+    }).then((data) => {
+      console.log(data);
+      setCoins(data)
     }).catch((err) => {
-      console.log(err)
+      console.log(err);
     })
   };
 
@@ -49,17 +48,15 @@ const CryptoList = () => {
           </tr>
           {coins.map(data => (
             <tr key={data.id}>
-              
-              <td><Link to={`/crypto/${data.id}`}>{data.name}</Link>
-                <img src={data.icon} alt={data.name} width="30px" height="30px" className='icon-img'/>
-              </td>
-              <td>{data.rank}</td>  
-              <td>&#36;{formatNumbers(data.price.toFixed(2))} </td>
-              <td className={checkPrice(data.priceChange1d)}>
-                  {data.priceChange1d}
-              </td>
-              <td>&#36;{formatNumbers(data.marketCap.toFixed(2))} </td>
+              <td><Link to={`/coins/${data.id}`}>{data.name}</Link>
+                <img src={data.image} alt={data.name} width="30px" height="30px" className='icon-img'/>
+               </td>
+              <td>{data.market_cap_rank}</td>
+              <td>&#x20BD; {formatNumbers(data.current_price?.toFixed(2))}</td>
+              <td className={checkPrice(data.price_change_percentage_24h)}>{formatNumbers(data.price_change_percentage_24h?.toFixed(2))}%</td>
+              <td>&#x20BD; {formatNumbers(data.market_cap?.toString().slice(0, -6))} </td> 
             </tr> 
+            
           ))}
         </tbody>
       </table>

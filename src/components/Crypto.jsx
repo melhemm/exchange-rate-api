@@ -3,6 +3,7 @@ import React, {useEffect, useState} from 'react'
 import { useParams } from 'react-router-dom'
 import { SingleCoin } from '../api/cryptoApi';
 import { checkPrice, formatNumbers} from './CryptoList';
+import ReactHtmlParser from 'react-html-parser';
 
 const Crypto = () => {
   const {id} = useParams()
@@ -22,11 +23,16 @@ const Crypto = () => {
   return (
     <div className='container'>
       <h1>Crypto details</h1>
+      <h2>Name: {coin?.name} || Symbol: {coin?.symbol} || Category: {coin?.categories}</h2>
+      <p>Current price: &#x20BD;{formatNumbers(coin?.market_data.current_price.rub)}</p>
+      <p>Market cap: &#x20BD;{formatNumbers(coin?.market_data.market_cap.rub.toString().slice(0, -6))}</p>
+      <p>Rank: {coin?.coingecko_rank}</p>
       <img
-          src={coin?.image.large}
-          alt={coin?.name}
-          height="200"
-        />
+        src={coin?.image.large}
+        alt={coin?.name}
+        height="200"
+      />
+      <p>Description: {ReactHtmlParser(coin?.description.en.split(". ")[0])}</p>
     </div>
   )
 }

@@ -2,8 +2,9 @@ import axios from 'axios'
 import React, {useEffect, useState} from 'react'
 import { useParams } from 'react-router-dom'
 import { SingleCoin } from '../api/cryptoApi';
-import { checkPrice, formatNumbers} from './CryptoList';
+import { formatNumbers } from './CryptoList';
 import ReactHtmlParser from 'react-html-parser';
+import CoinChart from './CoinChart';
 
 const Crypto = () => {
   const {id} = useParams()
@@ -33,6 +34,8 @@ const Crypto = () => {
         height="200"
       />
       <p>Description: {ReactHtmlParser(coin?.description.en.split(". ")[0])}</p>
+
+      <CoinChart coin={coin} />
     </div>
   )
 }
